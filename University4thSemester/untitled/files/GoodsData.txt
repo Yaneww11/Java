@@ -1,0 +1,3 @@
+Goods{name='meat', price=15.0}
+Goods{name='butter', price=6.0}
+Goods{name='milk', price=2.0}
