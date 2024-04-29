@@ -1,3 +1,4 @@
+import exersise3.MovieTheatre;
 import exersiseGoods.Goods;
 
 import java.io.*;
@@ -19,6 +20,8 @@ public class Main {
             e.printStackTrace();
         }
     }
+
+    //Task 2
 
     public static void writeGoods(String outputFilename, Goods goods) {
         FileWriter fout = null;
@@ -56,6 +59,51 @@ public class Main {
         return listOfGoods;
     }
 
+    public static List<Double> findPriceInGoodsString(List<String> listOfGoods) {
+        List<Double> listOfPrices = new ArrayList<>();
+        for (String goodsData : listOfGoods) {
+            listOfPrices.add(Double.parseDouble(goodsData.
+                    substring(goodsData.indexOf("=", goodsData.indexOf("price=")) + 1,
+                            goodsData.lastIndexOf("}"))));
+        }
+        return listOfPrices;
+    }
+
+    public static double sumPrices(List<Double> listOfPrices) {
+        double sum = 0;
+        for (Double goodsPrice : listOfPrices) {
+            sum += goodsPrice;
+        }
+        return sum;
+    }
+
+    // Task 3
+    public static void serializeMovieTheatre(String filePath, MovieTheatre movieTheatre){
+        try (FileOutputStream fos = new FileOutputStream(filePath);
+             ObjectOutputStream outputStream = new ObjectOutputStream(fos);) {
+            outputStream.writeObject(movieTheatre);
+        } catch (IOException ex) {
+            ex.printStackTrace();
+        }
+
+    }
+
+    public static MovieTheatre deserializeMovieTheatre(String filePath){
+        MovieTheatre movieTheatre = null;
+        try (FileInputStream fis = new FileInputStream(filePath);
+        ObjectInputStream inputStream = new ObjectInputStream(fis)){
+            movieTheatre = (MovieTheatre) inputStream.readObject();
+        } catch (FileNotFoundException e) {
+            e.printStackTrace();
+        } catch (IOException e) {
+            e.printStackTrace();
+        } catch (ClassNotFoundException e) {
+            e.printStackTrace();
+        }
+
+        return movieTheatre;
+    }
+
     public static void main(String[] args) {
 
         // Creating folder named "files" in the project folder
@@ -69,20 +117,34 @@ public class Main {
         */
         // Task 2
         {
+
             Goods goods1 = new Goods("meat", 15);
             Goods goods2 = new Goods("butter", 6);
             Goods goods3 = new Goods("milk", 2);
 
             String filename = "files/GoodsData.txt";
 
-            /*
+
             writeGoods(filename, goods1);
             writeGoods(filename, goods2);
             writeGoods(filename, goods3);
-             */
 
-            List<String> goodsFromFile = new ArrayList<>(readGoodsFromFile(filename));
-            System.out.println(goodsFromFile);
+            // Task 2.2
+            List<String> goodFromFile = new ArrayList<>(readGoodsFromFile(filename));
+            List<Double> goodsPrices = new ArrayList<>(findPriceInGoodsString(goodFromFile));
+            System.out.println("The sum of the prices of the goods is: " +
+                    sumPrices(goodsPrices));
+
+        }
+
+        //Task 3
+        {
+            String filePath = "files/movieTheatre.ser";
+            MovieTheatre movieTheatre = new MovieTheatre("Rakovska", "Rak 2", 10, 100);
+            serializeMovieTheatre(filePath, movieTheatre);
+
+            System.out.println(deserializeMovieTheatre(filePath));
+
         }
 
     }
