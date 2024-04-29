@@ -1,14 +1,27 @@
 package exersise3;
 
-public class TradeCenter {
-    protected String name;
-    protected String address;
-    protected double profit;
+import java.io.Serializable;
 
-    public TradeCenter(String name, String address, double profit) {
+public class TradeCenter implements Serializable {
+    protected String name;
+    protected transient String address;
+    protected static double profit;
+
+    public TradeCenter() {
+    }
+
+    public TradeCenter(String name, String address) {
         this.name = name;
         this.address = address;
-        this.profit = profit;
+
+    }
+
+    public static double getProfit() {
+        return profit;
+    }
+
+    public static void setProfit(double profit) {
+        TradeCenter.profit = profit;
     }
 
     @Override
@@ -16,7 +29,6 @@ public class TradeCenter {
         return "TradeCenter{" +
                 "name='" + name + '\'' +
                 ", address='" + address + '\'' +
-                ", profit=" + profit +
                 '}';
     }
 }
