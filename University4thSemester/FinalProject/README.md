@@ -49,6 +49,29 @@ This project involves the modeling and implementation of a process for stocking 
 4. Follow the instructions in the application to simulate stocking and selling goods.
 
 ## Project Structure
+├── src
+│ ├── main
+│ │ ├── java
+│ │ │ ├── store
+│ │ │ │ ├── Main.java
+│ │ │ │ ├── models
+│ │ │ │ │ ├── Cashier.java
+│ │ │ │ │ ├── Product.java
+│ │ │ │ │ ├── Receipt.java
+│ │ │ │ │ ├── Store.java
+│ │ │ │ │ └── StockException.java
+│ │ │ │ ├── services
+│ │ │ │ │ ├── CashierService.java
+│ │ │ │ │ ├── ProductService.java
+│ │ │ │ │ └── ReceiptService.java
+│ │ │ │ └── utils
+│ │ │ │ └── DateUtils.java
+│ │ ├── resources
+│ └── test
+│ ├── java
+│ │ ├── store
+│ │ │ └── StoreTest.java
+└── README.md
 
 ## License
 This project is licensed under the MIT License. See the LICENSE file for details.
